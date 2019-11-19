@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Table, Icon } from "antd";
+import { Table, Icon, Input, Button } from "antd";
 import { connect } from "react-redux";
 import { FormattedNumber } from "react-intl";
+import Highlighter from "react-highlight-words";
 
 import { fetchProducts } from "./actions/products";
 import classes from "./styles.module.css";
@@ -29,6 +30,90 @@ const ProductTable: React.FC = (props: any) => {
     fetchProducts();
   }, []);
 
+  // Table
+
+  // Methods
+
+  // on table change
+  const handleTableChange = (
+    pagination: object,
+    undefined: any,
+    sorter: object
+  ) => {
+    console.log(pagination, sorter);
+  };
+
+  // row select data
+  const rowSelection: object = {
+    onChange: (selectedRowKeys: string, selectedRows: string) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+    }
+  };
+
+  // Searching
+  const getColumnSearchProps = (dataIndex: any) => ({
+    filterDropdown: (data: any) => {
+      const { setSelectedKeys, selectedKeys, confirm, clearFilters } = data;
+      return (
+        <div style={{ padding: 8 }}>
+          <Input
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={e =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            onPressEnter={() => handleSearch(selectedKeys, confirm)}
+            style={{ width: 188, marginBottom: 8, display: "block" }}
+          />
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm)}
+            icon="search"
+            size="small"
+            style={{ width: 90, marginRight: 8 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </div>
+      );
+    },
+    filterIcon: (filtered: any) => (
+      <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined }} />
+    ),
+    onFilter: (value: any, record: any) => {
+      return true;
+    },
+    // onFilterDropdownVisibleChange: (visible: any) => {},
+    render: (text: any) => (
+      <Highlighter
+        highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+        autoEscape
+        searchWords={[]}
+        textToHighlight={text.toString()}
+      />
+    )
+  });
+
+  const handleSearch = (selectedKeys: any, confirm: any) => {
+    confirm();
+    console.log(selectedKeys);
+  };
+
+  const handleReset = (clearFilters: any) => {
+    clearFilters();
+  };
+
   // Table render
   const columns = [
     {
@@ -40,7 +125,8 @@ const ProductTable: React.FC = (props: any) => {
     },
     {
       title: "Tên sản phẩm",
-      dataIndex: "name"
+      dataIndex: "name",
+      ...getColumnSearchProps("name")
     },
     {
       title: "Hãng",
@@ -77,25 +163,6 @@ const ProductTable: React.FC = (props: any) => {
       )
     }
   ];
-
-  // Table methods
-  const handleTableChange = (
-    pagination: object,
-    undefined: any,
-    sorter: object
-  ) => {
-    console.log(sorter);
-  };
-
-  const rowSelection: object = {
-    onChange: (selectedRowKeys: string, selectedRows: string) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
-    }
-  };
 
   return (
     <div>
