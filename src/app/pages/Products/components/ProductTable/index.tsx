@@ -131,7 +131,11 @@ const ProductTable: React.FC = (props: any) => {
     {
       title: "Hãng",
       dataIndex: "brand",
-      width: 100
+      width: 100,
+      filters: [
+        { text: "Nike", value: "Nike" },
+        { text: "Adidas", value: "Adidas" }
+      ]
     },
     {
       title: "Giá đặt bán thấp nhất",
