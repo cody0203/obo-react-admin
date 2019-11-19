@@ -1,0 +1,16 @@
+.thumbnail {
+  max-width: 100px;
+}
+
+.action {
+  display: flex;
+}
+
+.action .icon {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.action .edit {
+  margin-left: 10px;
+}
