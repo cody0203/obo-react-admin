@@ -1,7 +1,7 @@
 import React from "react";
 import Loadable from "react-loadable";
 import { Redirect } from "react-router-dom";
-import productRoutes from "./modules/Products/routes";
+import productRoutes from "./app/modules/Products/routes";
 
 function Loading({ error }) {
   if (error) {
@@ -12,27 +12,27 @@ function Loading({ error }) {
 }
 
 const App = Loadable({
-  loader: () => import("./App"),
+  loader: () => import("./app/App"),
   loading: Loading
 });
 
 const Login = Loadable({
-  loader: () => import("./modules/Login"),
+  loader: () => import("./app/modules/Login"),
   loading: Loading
 });
 
 const DashboardLayout = Loadable({
-  loader: () => import("../layout/BasicLayout"),
+  loader: () => import("./app/layout/BasicLayout"),
   loading: Loading
 });
 
 const Dashboard = Loadable({
-  loader: () => import("./modules/Dashboard"),
+  loader: () => import("./app/modules/Dashboard"),
   loading: Loading
 });
 
 const NotFound = Loadable({
-  loader: () => import("./modules/NotFound"),
+  loader: () => import("./app/modules/NotFound"),
   loading: Loading
 });
 

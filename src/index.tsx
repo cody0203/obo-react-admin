@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./store";
 import { IntlProvider } from "react-intl";
 import { renderRoutes } from "react-router-config";
-import routes from "./app/routes";
+import routes from "./routes";
 import { PersistGate } from "redux-persist/integration/react";
 import Loadable from "react-loadable";
 

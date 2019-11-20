@@ -4,7 +4,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 
 import classes from "./styles.module.css";
-import GlobalHeader from "../app/components/headers";
+import GlobalHeader from "../components/headers";
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
