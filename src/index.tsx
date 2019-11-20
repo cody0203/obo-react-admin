@@ -1,21 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./app/App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./store";
+import { store, persistor } from "./store";
 import { IntlProvider } from "react-intl";
 import { renderRoutes } from "react-router-config";
 import routes from "./app/routes";
+import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.render(
   <Provider store={store}>
-    <IntlProvider locale="vi">
-      <Router>
-        <Switch>{renderRoutes(routes)}</Switch>
-      </Router>
-    </IntlProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <IntlProvider locale="vi">
+        <Router>
+          <Switch>{renderRoutes(routes)}</Switch>
+        </Router>
+      </IntlProvider>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );

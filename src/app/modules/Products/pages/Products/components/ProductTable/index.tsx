@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Table, Icon, Input, Button } from "antd";
 import { connect } from "react-redux";
 import { FormattedNumber } from "react-intl";
 import Highlighter from "react-highlight-words";
+import { Link } from "react-router-dom";
 
 import { fetchProducts } from "./actions/products";
 import classes from "./styles.module.css";
@@ -126,7 +127,10 @@ const ProductTable: React.FC = (props: any) => {
     {
       title: "Tên sản phẩm",
       dataIndex: "name",
-      ...getColumnSearchProps("name")
+      ...getColumnSearchProps("name"),
+      render: (text: string, record: any) => {
+        return <Link to={`/dashboard/products/${record.id}`}>{text}</Link>;
+      }
     },
     {
       title: "Hãng",

@@ -30,6 +30,11 @@ const Products = Loadable({
   loading: Loading
 });
 
+const Product = Loadable({
+  loader: () => import("./modules/Products/pages/Product"),
+  loading: Loading
+});
+
 const NewProduct = Loadable({
   loader: () => import("./modules/Products/pages/NewProduct"),
   loading: Loading
@@ -70,6 +75,11 @@ export default [
             title: "Products",
             exact: true,
             component: Products
+          },
+          {
+            path: "/dashboard/products/:productId",
+            title: "Product",
+            component: Product
           },
           {
             path: "/dashboard/new-product",

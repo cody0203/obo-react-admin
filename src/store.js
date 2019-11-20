@@ -3,15 +3,25 @@ import rootReducer from "./app/reducers";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./app/sagas";
 
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+
 const initialSagaMiddleware = createSagaMiddleware();
+
+const persistConfig = {
+  key: "root",
+  storage
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const storeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(
-  rootReducer,
+export const store = createStore(
+  persistedReducer,
   storeEnhancers(applyMiddleware(initialSagaMiddleware))
 );
 
-initialSagaMiddleware.run(rootSaga);
+export const persistor = persistStore(store);
 
-export default store;
+initialSagaMiddleware.run(rootSaga);
