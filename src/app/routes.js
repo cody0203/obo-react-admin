@@ -1,6 +1,7 @@
 import React from "react";
 import Loadable from "react-loadable";
 import { Redirect } from "react-router-dom";
+import productRoutes from "./modules/Products/routes";
 
 function Loading({ error }) {
   if (error) {
@@ -15,6 +16,11 @@ const App = Loadable({
   loading: Loading
 });
 
+const Login = Loadable({
+  loader: () => import("./modules/Login"),
+  loading: Loading
+});
+
 const DashboardLayout = Loadable({
   loader: () => import("../layout/BasicLayout"),
   loading: Loading
@@ -22,26 +28,6 @@ const DashboardLayout = Loadable({
 
 const Dashboard = Loadable({
   loader: () => import("./modules/Dashboard"),
-  loading: Loading
-});
-
-const Products = Loadable({
-  loader: () => import("./modules/Products/pages/Products"),
-  loading: Loading
-});
-
-const Product = Loadable({
-  loader: () => import("./modules/Products/pages/Product"),
-  loading: Loading
-});
-
-const NewProduct = Loadable({
-  loader: () => import("./modules/Products/pages/NewProduct"),
-  loading: Loading
-});
-
-const Login = Loadable({
-  loader: () => import("./modules/Login"),
   loading: Loading
 });
 
@@ -70,22 +56,7 @@ export default [
             exact: true,
             component: Dashboard
           },
-          {
-            path: "/dashboard/products",
-            title: "Products",
-            exact: true,
-            component: Products
-          },
-          {
-            path: "/dashboard/products/:productId",
-            title: "Product",
-            component: Product
-          },
-          {
-            path: "/dashboard/new-product",
-            title: "New Product",
-            component: NewProduct
-          }
+          ...productRoutes
         ]
       },
       {

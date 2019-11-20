@@ -5,7 +5,7 @@ import { FormattedNumber } from "react-intl";
 import Highlighter from "react-highlight-words";
 import { Link } from "react-router-dom";
 
-import { fetchProducts } from "./actions/products";
+import { fetchProducts } from "../../actions/products";
 import classes from "./styles.module.css";
 
 function mapStateToProps(state: any) {

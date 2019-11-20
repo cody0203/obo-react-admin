@@ -1,11 +1,12 @@
 import React from "react";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import { Card } from "antd";
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 
 import classes from "./styles.module.css";
 
 const Login = (props: any) => {
+  const history = useHistory();
   const { getFieldDecorator } = props.form;
 
   const handleSubmit = (e: any) => {
@@ -13,7 +14,7 @@ const Login = (props: any) => {
     props.form.validateFields((err: any, values: any) => {
       console.log(values);
       if (values.username === "admin" && values.password === "admin") {
-        
+        history.push("/");
       }
     });
   };
