@@ -1,6 +1,6 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 import { FETCH_PRODUCTS, FETCHED_DATA } from "../action-types";
-import { fetchProducts } from "app/pages/Products/services/api";
+import { fetchProducts } from "app/modules/Products/services/api";
 
 function* workerSaga() {
   try {

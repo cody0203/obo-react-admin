@@ -1,25 +1,10 @@
 import React from "react";
-import BasicLayout from "../layout/BasicLayout";
-import { Switch, Route, withRouter } from "react-router-dom";
-import routes from "./routes";
+import { withRouter } from "react-router-dom";
+import { renderRoutes } from "react-router-config";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <BasicLayout>
-        <Switch>
-          {routes.map(route => (
-            <Route
-              exact
-              path={route.path}
-              key={route.path}
-              component={route.component}
-            ></Route>
-          ))}
-        </Switch>
-      </BasicLayout>
-    </div>
-  );
+const App: React.FC = (props: any) => {
+  const { route } = props;
+  return <div className="App">{renderRoutes(route.routes)}</div>;
 };
 
 export default withRouter(App);

@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu, Icon, Dropdown } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
-import classes from "./styles.module.css";
-const { Header, Sider, Content } = Layout;
+import { renderRoutes } from "react-router-config";
 
-const BasicLayout: React.FC = props => {
+import classes from "./styles.module.css";
+import GlobalHeader from "../app/components/headers";
+
+const { Header, Sider, Content } = Layout;
+const { SubMenu } = Menu;
+
+const BasicLayout: React.FC = (props: any) => {
+  const { route } = props;
   // Initial Declaration
   const location = useLocation();
-  console.log([location.pathname]);
   // Local States
   const [collapsed, setCollapsed] = useState(false);
 
@@ -18,34 +23,48 @@ const BasicLayout: React.FC = props => {
 
   return (
     <div>
-      <Layout className={classes.layout}>
+      <Layout className={classes.Layout}>
         <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className={classes.logo} />
+          <div className={classes.Logo} />
           <Menu
             theme="dark"
             mode="inline"
             defaultSelectedKeys={[location.pathname]}
           >
-            <Menu.Item key="/">
-              <NavLink to="/">
+            <Menu.Item key="/dashboard">
+              <NavLink to="/dashboard">
                 <Icon type="user" />
                 <span>Dashboard </span>
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="/products">
-              <NavLink to="/products">
-                <Icon type="video-camera" />
-                <span>Products </span>
-              </NavLink>
-            </Menu.Item>
+            <SubMenu
+              key="products"
+              title={
+                <span>
+                  <Icon type="appstore" />
+                  <span>Sản phẩm</span>
+                </span>
+              }
+            >
+              <Menu.Item key="/dashboard/products">
+                <NavLink to="/dashboard/products">
+                  <span>Tất cả sản phẩm </span>
+                </NavLink>
+              </Menu.Item>
+
+              <Menu.Item key="/dashboard/new-product">
+                <NavLink to="/dashboard/new-product">
+                  <span>Sản phẩm mới </span>
+                </NavLink>
+              </Menu.Item>
+            </SubMenu>
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{ background: "#fff", padding: 0 }}>
-            <Icon
-              className={classes.trigger}
-              type={collapsed ? "menu-unfold" : "menu-fold"}
-              onClick={toggleCollapsed}
+          <Header className={classes.Header}>
+            <GlobalHeader
+              toggleCollapsed={toggleCollapsed}
+              collapsed={collapsed}
             />
           </Header>
           <Content
@@ -56,7 +75,7 @@ const BasicLayout: React.FC = props => {
               minHeight: 280
             }}
           >
-            {props.children}
+            {renderRoutes(route.routes)}
           </Content>
         </Layout>
       </Layout>
