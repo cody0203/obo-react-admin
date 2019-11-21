@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { NavLink, useLocation, Route } from 'react-router-dom';
-import Auth from 'app/services/Auth';
 
 import classes from './styles.module.css';
 import GlobalHeader from '../components/headers';
@@ -86,7 +85,6 @@ export default BasicLayout;
 
 export const DashboardLayout = (props: any) => {
   const { component: Component, ...rest } = props;
-  console.log(<Component />);
   return (
     <Route
       {...rest}
