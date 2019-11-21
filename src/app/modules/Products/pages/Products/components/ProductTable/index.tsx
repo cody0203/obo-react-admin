@@ -41,7 +41,6 @@ const ProductTable: React.FC = (props: any) => {
     undefined: any,
     sorter: object
   ) => {
-    console.log(pagination, sorter);
   };
 
   // row select data

@@ -1,25 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+function mapStateToProps(state) {
+  return {
+    isLogged: state.authReducer.isLogged
+  };
+}
 
 const Auth = WrappedComponent => {
   const Authenticate = props => {
-    const [isLogged] = useState(localStorage.getItem('logged'));
+    const { isLogged } = props;
     const history = useHistory();
     useEffect(() => {
-      console.log('a');
-      if (isLogged === 'false') {
+      if (isLogged === false) {
         history.push('/login');
       }
-    }, []);
+    }, [history, isLogged]);
 
-    console.log(isLogged);
-    return isLogged === 'true' ? (
+    return isLogged === true ? (
       <WrappedComponent {...props} />
     ) : (
       <Redirect to="/login" />
     );
   };
-  return Authenticate;
+  return connect(mapStateToProps)(Authenticate);
 };
 
 export default Auth;

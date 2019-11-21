@@ -1,13 +1,21 @@
-import React from "react";
-import { Menu, Dropdown, Icon } from "antd";
-import classes from "./index.module.css";
+import React from 'react';
+import { Menu, Dropdown, Icon } from 'antd';
+import { connect } from 'react-redux';
+import classes from './index.module.css';
+import { authHandler } from '../../actions/auth';
+
+function mapDispatchToProps(dispatch: any) {
+  return {
+    authHandler: (type: any) => dispatch(authHandler(type))
+  };
+}
 
 const GlobalHeader = (props: any) => {
   // Props
-  const { collapsed, toggleCollapsed } = props;
+  const { collapsed, toggleCollapsed, authHandler } = props;
 
   const logout = () => {
-    localStorage.setItem("logged", "false");
+    authHandler(false);
   };
 
   // Account dropdown
@@ -28,7 +36,7 @@ const GlobalHeader = (props: any) => {
     <>
       <Icon
         className={classes.Trigger}
-        type={collapsed ? "menu-unfold" : "menu-fold"}
+        type={collapsed ? 'menu-unfold' : 'menu-fold'}
         onClick={toggleCollapsed}
       />
       <div className={classes.Account}>
@@ -40,4 +48,4 @@ const GlobalHeader = (props: any) => {
   );
 };
 
-export default GlobalHeader;
+export default connect(null, mapDispatchToProps)(GlobalHeader);

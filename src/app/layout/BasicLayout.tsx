@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { NavLink, useLocation, Route } from 'react-router-dom';
 
@@ -28,6 +28,7 @@ const BasicLayout: React.FC = (props: any) => {
             theme="dark"
             mode="inline"
             defaultSelectedKeys={[location.pathname]}
+            defaultOpenKeys={[location.pathname]}
           >
             <Menu.Item key="/dashboard">
               <NavLink to="/dashboard">

@@ -1,34 +1,53 @@
-import React from "react";
-import { withRouter, useHistory } from "react-router-dom";
-import { Card } from "antd";
-import { Form, Icon, Input, Button, Checkbox } from "antd";
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Card } from 'antd';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { authHandler } from '../../actions/auth';
+import classes from './styles.module.css';
 
-import classes from "./styles.module.css";
+function mapDispatchToProps(dispatch: any) {
+  return {
+    authHandler: (type: any) => dispatch(authHandler(type))
+  };
+}
+
+function mapStateToProps(state: any) {
+  return {
+    isLogged: state.authReducer.isLogged
+  };
+}
 
 const Login = (props: any) => {
   const history = useHistory();
   const { getFieldDecorator } = props.form;
+  const { authHandler, isLogged } = props;
+
+  useEffect(() => {
+    if (isLogged) {
+      history.push('/');
+    }
+  }, [isLogged, history]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     props.form.validateFields((err: any, values: any) => {
-      console.log(err);
-      if (values.username === "admin" && values.password === "admin") {
-        history.push("/");
-        localStorage.setItem("logged", "true");
+      if (values.username === 'admin' && values.password === 'admin') {
+        history.push('/');
+        authHandler(true);
       }
     });
   };
 
   const compareInfo = async (rule: any, value: any, callback: any) => {
     const { form } = props;
-    if (form.getFieldValue("username") !== "admin") {
-      throw new Error("Something wrong!");
+    if (form.getFieldValue('username') !== 'admin') {
+      throw new Error('Something wrong!');
     } else {
       callback();
     }
-    if (form.getFieldValue("password") !== "admin") {
-      callback("Wrong password");
+    if (form.getFieldValue('password') !== 'admin') {
+      callback('Wrong password');
     } else {
       callback();
     }
@@ -40,35 +59,35 @@ const Login = (props: any) => {
 
       <Form onSubmit={handleSubmit} className="login-form">
         <Form.Item>
-          {getFieldDecorator("username", {
+          {getFieldDecorator('username', {
             rules: [
-              { required: true, message: "Please input your username!" },
+              { required: true, message: 'Please input your username!' },
               { validator: compareInfo }
             ]
           })(
             <Input
-              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="Username"
             />
           )}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator("password", {
+          {getFieldDecorator('password', {
             rules: [
-              { required: true, message: "Please input your Password!" },
+              { required: true, message: 'Please input your Password!' },
               { validator: compareInfo }
             ]
           })(
             <Input
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
               placeholder="Password"
             />
           )}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator("remember", {
-            valuePropName: "checked",
+          {getFieldDecorator('remember', {
+            valuePropName: 'checked',
             initialValue: true
           })(<Checkbox>Remember me</Checkbox>)}
           <a className="login-form-forgot" href="">
@@ -88,6 +107,9 @@ const Login = (props: any) => {
   );
 };
 
-const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(Login);
+const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Login);
 
-export default WrappedNormalLoginForm;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WrappedNormalLoginForm);

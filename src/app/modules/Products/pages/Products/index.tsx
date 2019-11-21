@@ -4,7 +4,6 @@ import ProductTable from "./components/ProductTable";
 
 const Products: React.FC = (props: any) => {
   const route = props.route;
-  console.log(route);
   return (
     <div>
       <ProductTable />
