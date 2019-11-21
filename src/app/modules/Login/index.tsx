@@ -12,11 +12,26 @@ const Login = (props: any) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     props.form.validateFields((err: any, values: any) => {
-      console.log(values);
+      console.log(err);
       if (values.username === "admin" && values.password === "admin") {
         history.push("/");
+        localStorage.setItem("logged", "true");
       }
     });
+  };
+
+  const compareInfo = async (rule: any, value: any, callback: any) => {
+    const { form } = props;
+    if (form.getFieldValue("username") !== "admin") {
+      throw new Error("Something wrong!");
+    } else {
+      callback();
+    }
+    if (form.getFieldValue("password") !== "admin") {
+      callback("Wrong password");
+    } else {
+      callback();
+    }
   };
 
   return (
@@ -26,7 +41,10 @@ const Login = (props: any) => {
       <Form onSubmit={handleSubmit} className="login-form">
         <Form.Item>
           {getFieldDecorator("username", {
-            rules: [{ required: true, message: "Please input your username!" }]
+            rules: [
+              { required: true, message: "Please input your username!" },
+              { validator: compareInfo }
+            ]
           })(
             <Input
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -36,7 +54,10 @@ const Login = (props: any) => {
         </Form.Item>
         <Form.Item>
           {getFieldDecorator("password", {
-            rules: [{ required: true, message: "Please input your Password!" }]
+            rules: [
+              { required: true, message: "Please input your Password!" },
+              { validator: compareInfo }
+            ]
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
