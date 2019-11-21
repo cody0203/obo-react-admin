@@ -1,10 +1,19 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
-const Auth = Child =>
-   function AuthChild() {
-    console.log(Child)
+export default function Auth(WrappedComponent) {
+  class Authenticate extends Component {
+    render() {
+      return (
+        <div>
+          {localStorage.getItem('logged') === 'true' ? (
+            <WrappedComponent {...this.props} />
+          ) : (
+            <Redirect to="/login" />
+          )}
+        </div>
+      );
+    }
   }
-  
-
-export default Auth;
+  return Authenticate;
+}

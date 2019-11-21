@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Layout, Menu, Icon, Dropdown } from "antd";
-import { NavLink, useLocation } from "react-router-dom";
-import { renderRoutes } from "react-router-config";
+import React, { useState, useEffect } from 'react';
+import { Layout, Menu, Icon } from 'antd';
+import { NavLink, useLocation, Route } from 'react-router-dom';
+import Auth from 'app/services/Auth';
 
-import classes from "./styles.module.css";
-import GlobalHeader from "../components/headers";
+import classes from './styles.module.css';
+import GlobalHeader from '../components/headers';
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
 const BasicLayout: React.FC = (props: any) => {
-  const { route } = props;
   // Initial Declaration
   const location = useLocation();
   // Local States
@@ -69,13 +68,13 @@ const BasicLayout: React.FC = (props: any) => {
           </Header>
           <Content
             style={{
-              margin: "24px 16px",
+              margin: '24px 16px',
               padding: 24,
-              background: "#fff",
+              background: '#fff',
               minHeight: 280
             }}
           >
-            {renderRoutes(route.routes)}
+            {props.children}
           </Content>
         </Layout>
       </Layout>
@@ -84,3 +83,20 @@ const BasicLayout: React.FC = (props: any) => {
 };
 
 export default BasicLayout;
+
+export const DashboardLayout = (props: any) => {
+  const { component: Component, ...rest } = props;
+  console.log(<Component />);
+  return (
+    <Route
+      {...rest}
+      render={matchProps => {
+        return (
+          <BasicLayout>
+            <Component {...matchProps} />
+          </BasicLayout>
+        );
+      }}
+    />
+  );
+};

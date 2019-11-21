@@ -1,33 +1,27 @@
-import Loadable from "react-loadable";
-import Loading from "app/utils/Loading";
-import Auth from "app/services/Auth";
+import Loadable from 'react-loadable';
+import Loading from 'app/utils/Loading';
+import Auth from 'app/services/Auth';
+import routes from 'app/modules/Products/routes';
 
-const withAuth = Auth("/login");
+const withAuth = Auth('/login');
 
 const DashboardLayout = Loadable({
-  loader: () => import("app/layout/BasicLayout"),
+  loader: () => import('app/layout/BasicLayout'),
   loading: Loading
 });
 
 const Dashboard = Loadable({
-  loader: () => import("app/modules/Dashboard"),
+  loader: () => import('app/modules/Dashboard'),
   loading: Loading
 });
 
-const dashboardRoutes = childs => {
-  return {
-    path: "/dashboard",
-    component: DashboardLayout,
-    routes: [
-      {
-        path: "/dashboard",
-        title: "Dashboard",
-        exact: true,
-        component: withAuth(Dashboard)
-      },
-      ...childs
-    ]
-  };
-};
+const dashboardRoutes = [
+  {
+    path: '/dashboard',
+    title: 'Dashboard',
+    component: Dashboard
+  },
+  ...routes
+];
 
 export default dashboardRoutes;

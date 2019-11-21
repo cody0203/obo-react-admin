@@ -1,14 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store, persistor } from "./store";
-import { IntlProvider } from "react-intl";
-import { renderRoutes } from "react-router-config";
-import routes from "./routes";
-import { PersistGate } from "redux-persist/integration/react";
-import Loadable from "react-loadable";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store, persistor } from './store';
+import { IntlProvider } from 'react-intl';
+import App from 'app/App';
+import { PersistGate } from 'redux-persist/integration/react';
+import Loadable from 'react-loadable';
 
 Loadable.preloadReady().then(() => {
   ReactDOM.render(
@@ -16,12 +15,14 @@ Loadable.preloadReady().then(() => {
       <PersistGate loading={null} persistor={persistor}>
         <IntlProvider locale="vi">
           <Router>
-            <Switch>{renderRoutes(routes)}</Switch>
+            <Switch>
+              <App />
+            </Switch>
           </Router>
         </IntlProvider>
       </PersistGate>
     </Provider>,
-    document.getElementById("root")
+    document.getElementById('root')
   );
 });
 
