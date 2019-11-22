@@ -1,16 +1,12 @@
-import Loadable from 'react-loadable';
-import Loading from 'app/utils/Loading';
+import React from 'react';
 
-const Login = Loadable({
-  loader: () => import('./index'),
-  loading: Loading
-});
+import AsyncPage from 'app/utils/Loadable';
 
 const loginRoute = [
   {
     path: '/login',
     title: 'Login',
-    component: Login
+    component: () => <AsyncPage page="modules/Login" />
   }
 ];
 

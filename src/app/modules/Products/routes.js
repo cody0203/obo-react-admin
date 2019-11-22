@@ -1,45 +1,24 @@
-import React from "react";
-import Loadable from "react-loadable";
+import React from 'react';
+import AsyncPage from 'app/utils/Loadable';
 
-function Loading({ error }) {
-  if (error) {
-    return "Oh nooess!";
-  } else {
-    return <h3>Loading...</h3>;
-  }
-}
-
-const Products = Loadable({
-  loader: () => import("./pages/Products"),
-  loading: Loading
-});
-
-const Product = Loadable({
-  loader: () => import("./pages/Product"),
-  loading: Loading
-});
-
-const NewProduct = Loadable({
-  loader: () => import("./pages/NewProduct"),
-  loading: Loading
-});
+const path = 'modules/Products/pages';
 
 const productRoutes = [
   {
-    path: "/dashboard/products",
-    title: "Products",
+    path: '/dashboard/products',
+    title: 'Products',
     exact: true,
-    component: Products
+    component: () => <AsyncPage page={`${path}/Products`} />
   },
   {
-    path: "/dashboard/products/:productId",
-    title: "Product",
-    component: Product
+    path: '/dashboard/products/:productId',
+    title: 'Product',
+    component: () => <AsyncPage page={`${path}/Product`} />
   },
   {
-    path: "/dashboard/new-product",
-    title: "New Product",
-    component: NewProduct
+    path: '/dashboard/new-product',
+    title: 'New Product',
+    component: () => <AsyncPage page={`${path}/NewProduct`} />
   }
 ];
 

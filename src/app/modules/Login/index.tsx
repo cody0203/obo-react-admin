@@ -90,7 +90,7 @@ const Login = (props: any) => {
             valuePropName: 'checked',
             initialValue: true
           })(<Checkbox>Remember me</Checkbox>)}
-          <a className="login-form-forgot" href="">
+          <a className="login-form-forgot" href="#a">
             Forgot password
           </a>
           <Button
@@ -100,7 +100,7 @@ const Login = (props: any) => {
           >
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          Or <a href="#a">register now!</a>
         </Form.Item>
       </Form>
     </Card>

@@ -1,9 +1,8 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import ProductTable from "./components/ProductTable";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import ProductTable from './components/ProductTable';
 
 const Products: React.FC = (props: any) => {
-  const route = props.route;
   return (
     <div>
       <ProductTable />

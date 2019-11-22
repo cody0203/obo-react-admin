@@ -22,10 +22,10 @@ const GlobalHeader = (props: any) => {
   const Account = (
     <Menu>
       <Menu.Item>
-        <a>Thông tin tài khoản</a>
+        <span>Thông tin tài khoản</span>
       </Menu.Item>
       <Menu.Item onClick={logout}>
-        <a>Thoát</a>
+        <span>Thoát</span>
       </Menu.Item>
     </Menu>
   );

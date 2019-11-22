@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { Table, Icon, Input, Button } from "antd";
-import { connect } from "react-redux";
-import { FormattedNumber } from "react-intl";
-import Highlighter from "react-highlight-words";
-import { Link } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { Table, Icon, Input, Button } from 'antd';
+import { connect } from 'react-redux';
+import { FormattedNumber } from 'react-intl';
+import Highlighter from 'react-highlight-words';
+import { Link } from 'react-router-dom';
 
-import { fetchProducts } from "../../actions/products";
-import classes from "./styles.module.css";
+import { fetchProducts } from '../../actions/products';
+import classes from './styles.module.css';
 
 function mapStateToProps(state: any) {
   return {
@@ -29,7 +29,7 @@ const ProductTable: React.FC = (props: any) => {
   // Life cycles
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
   // Table
 
@@ -40,15 +40,14 @@ const ProductTable: React.FC = (props: any) => {
     pagination: object,
     undefined: any,
     sorter: object
-  ) => {
-  };
+  ) => {};
 
   // row select data
   const rowSelection: object = {
     onChange: (selectedRowKeys: string, selectedRows: string) => {
       console.log(
         `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
+        'selectedRows: ',
         selectedRows
       );
     }
@@ -67,7 +66,7 @@ const ProductTable: React.FC = (props: any) => {
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
             onPressEnter={() => handleSearch(selectedKeys, confirm)}
-            style={{ width: 188, marginBottom: 8, display: "block" }}
+            style={{ width: 188, marginBottom: 8, display: 'block' }}
           />
           <Button
             type="primary"
@@ -89,7 +88,7 @@ const ProductTable: React.FC = (props: any) => {
       );
     },
     filterIcon: (filtered: any) => (
-      <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined }} />
+      <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
     ),
     onFilter: (value: any, record: any) => {
       return true;
@@ -97,7 +96,7 @@ const ProductTable: React.FC = (props: any) => {
     // onFilterDropdownVisibleChange: (visible: any) => {},
     render: (text: any) => (
       <Highlighter
-        highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+        highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
         autoEscape
         searchWords={[]}
         textToHighlight={text.toString()}
@@ -117,54 +116,54 @@ const ProductTable: React.FC = (props: any) => {
   // Table render
   const columns = [
     {
-      title: "Ảnh sản phẩm",
-      dataIndex: "thumbnail",
+      title: 'Ảnh sản phẩm',
+      dataIndex: 'thumbnail',
       render: (thumbnail: string) => {
         return <img className={classes.thumbnail} src={thumbnail} />;
       }
     },
     {
-      title: "Tên sản phẩm",
-      dataIndex: "name",
-      ...getColumnSearchProps("name"),
+      title: 'Tên sản phẩm',
+      dataIndex: 'name',
+      ...getColumnSearchProps('name'),
       render: (text: string, record: any) => {
         return <Link to={`/dashboard/products/${record.id}`}>{text}</Link>;
       }
     },
     {
-      title: "Hãng",
-      dataIndex: "brand",
+      title: 'Hãng',
+      dataIndex: 'brand',
       width: 100,
       filters: [
-        { text: "Nike", value: "Nike" },
-        { text: "Adidas", value: "Adidas" }
+        { text: 'Nike', value: 'Nike' },
+        { text: 'Adidas', value: 'Adidas' }
       ]
     },
     {
-      title: "Giá đặt bán thấp nhất",
-      dataIndex: "sell_price",
+      title: 'Giá đặt bán thấp nhất',
+      dataIndex: 'sell_price',
       sorter: true,
       render: (sell_price: number) => (
         <FormattedNumber style="currency" currency="VND" value={sell_price} />
       )
     },
     {
-      title: "Giá đặt mua cao nhất",
-      dataIndex: "buy_price",
+      title: 'Giá đặt mua cao nhất',
+      dataIndex: 'buy_price',
       sorter: true,
       render: (buy_price: number) => (
         <FormattedNumber style="currency" currency="VND" value={buy_price} />
       )
     },
     {
-      title: "Action",
-      key: "operation",
+      title: 'Action',
+      key: 'operation',
       render: () => (
         <div className={classes.action}>
           <Icon type="delete" className={classes.icon} />
           <Icon
             type="edit"
-            className={[classes.icon, classes.edit].join(" ")}
+            className={[classes.icon, classes.edit].join(' ')}
           />
         </div>
       )

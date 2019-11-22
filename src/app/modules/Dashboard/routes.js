@@ -1,16 +1,12 @@
-import Loadable from 'react-loadable';
-import Loading from 'app/utils/Loading';
+import React from 'react';
 
-const Dashboard = Loadable({
-  loader: () => import('app/modules/Dashboard'),
-  loading: Loading
-});
+import AsyncPage from 'app/utils/Loadable';
 
 const dashboardRoutes = [
   {
     path: '/dashboard',
     title: 'Dashboard',
-    component: Dashboard
+    component: () => <AsyncPage page="modules/Dashboard" />
   }
 ];
 
