@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import React from 'react';
 import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
@@ -11,17 +10,11 @@ function mapStateToProps(state) {
 const Permission = WrappedComponent => {
   const PermissionChecker = props => {
     const { authStatus } = props;
-    const history = useHistory();
-    useEffect(() => {
-      if (authStatus.role === 'user') {
-        history.push('/dashboard');
-      }
-    }, [history, authStatus]);
 
     return authStatus.role === 'admin' ? (
       <WrappedComponent {...props} />
     ) : (
-      <Redirect to="/dashboard" />
+      <div>Bạn không có quyền</div>
     );
   };
   return connect(mapStateToProps)(PermissionChecker);

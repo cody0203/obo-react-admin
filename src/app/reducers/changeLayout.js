@@ -1,7 +1,7 @@
 import { COLLAPSED_HANDLER } from 'app/types';
 
 const initialState = {
-  collapsed: true
+  collapsed: false
 };
 
 const changeLayoutReducer = (state = initialState, action) => {

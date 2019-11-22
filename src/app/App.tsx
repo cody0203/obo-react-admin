@@ -5,6 +5,8 @@ import { rootRoutes } from '../rootRoutes';
 import { publicRoutes } from '../publicRoutes';
 import NotFound from './modules/NotFound';
 import Auth from 'app/services/Auth';
+import Permission from 'app/services/Permission';
+import { compose } from 'recompose';
 
 const DashboardLayout = (props: any) => {
   const { component: Component, ...rest } = props;
@@ -40,15 +42,27 @@ const App: React.FC = () => {
             />
           );
         })}
-        {rootRoutes.map(route => {
-          return (
-            <DashboardLayout
-              path={route.path}
-              component={Auth(route.component)}
-              key={route.path}
-              exact={true}
-            />
-          );
+        {rootRoutes.map((route: any) => {
+          const enhancedComponents = compose(Auth, Permission)(route.component);
+          if (route.restrict) {
+            return (
+              <DashboardLayout
+                path={route.path}
+                component={enhancedComponents}
+                key={route.path}
+                exact={true}
+              />
+            );
+          } else {
+            return (
+              <DashboardLayout
+                path={route.path}
+                component={Auth(route.component)}
+                key={route.path}
+                exact={true}
+              />
+            );
+          }
         })}
         <Route path="*" component={NotFound} />
       </Switch>

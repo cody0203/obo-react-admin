@@ -13,11 +13,13 @@ const productRoutes = [
   {
     path: '/dashboard/products/:productId',
     title: 'Product',
+    restrict: true,
     component: () => <AsyncPage page={`${path}/Product`} />
   },
   {
     path: '/dashboard/new-product',
     title: 'New Product',
+    restrict: true,
     component: () => <AsyncPage page={`${path}/NewProduct`} />
   }
 ];
