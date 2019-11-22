@@ -3,7 +3,10 @@ import { withRouter } from 'react-router-dom';
 import Permission from 'app/services/Permission';
 import { compose } from 'redux';
 
-const NewProduct = () => <div>New Product run</div>;
+const NewProduct = (props: any) => {
+  console.log(props);
+  return <div>New Product run</div>;
+};
 const enhancedNewProduct = compose(withRouter, Permission)(NewProduct);
 
 export default enhancedNewProduct;
