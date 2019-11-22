@@ -22,16 +22,16 @@ const BasicLayout: React.FC = (props: any) => {
   // Initial Declaration
   const location = useLocation();
   const { collapsed } = props;
-  // Local States
-  // const [collapsed, setCollapsed] = useState(false);
-
-  console.log(props);
 
   return (
     <div>
       <Layout className={classes.Layout}>
         <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className={classes.Logo} />
+          <div className={classes.Logo}>
+            <NavLink to="/dashboard">
+              <img src="/assets/images/logo-white.png" />
+            </NavLink>
+          </div>
           <Menu
             theme="dark"
             mode="inline"
