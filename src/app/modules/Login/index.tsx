@@ -94,6 +94,9 @@ const Login = (props: any) => {
           Or <a href="#a">register now!</a>
         </Form.Item>
       </Form>
+      <small>username/password: admin | Role: admin</small>
+      <br />
+      <small>username/password: user | Role: user</small>
     </Card>
   );
 };
