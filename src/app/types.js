@@ -1,1 +1,2 @@
 export const AUTH_HANDLER = 'AUTH_HANDLER';
+export const COLLAPSED_HANDLER = 'COLLAPSED_HANDLER';

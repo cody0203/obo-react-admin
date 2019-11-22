@@ -1,6 +1,12 @@
 import { combineReducers } from 'redux';
 import productReducer from '../modules/Products/pages/Products/reducers/products';
 import authReducer from './auth';
-const rootReducer = combineReducers({ authReducer, productReducer });
+import changeLayoutReducer from './changeLayout';
+
+const rootReducer = combineReducers({
+  authReducer,
+  changeLayoutReducer,
+  productReducer
+});
 
 export default rootReducer;

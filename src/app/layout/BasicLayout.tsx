@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+// Modules
+import React from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { NavLink, useLocation, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+// Components and styles
 import classes from './styles.module.css';
 import GlobalHeader from '../components/headers';
+
+// Declarations
+function mapStateToProps(state: any) {
+  return {
+    collapsed: state.changeLayoutReducer.collapsed
+  };
+}
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -11,13 +21,11 @@ const { SubMenu } = Menu;
 const BasicLayout: React.FC = (props: any) => {
   // Initial Declaration
   const location = useLocation();
+  const { collapsed } = props;
   // Local States
-  const [collapsed, setCollapsed] = useState(false);
+  // const [collapsed, setCollapsed] = useState(false);
 
-  // Method
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
+  console.log(props);
 
   return (
     <div>
@@ -61,10 +69,7 @@ const BasicLayout: React.FC = (props: any) => {
         </Sider>
         <Layout>
           <Header className={classes.Header}>
-            <GlobalHeader
-              toggleCollapsed={toggleCollapsed}
-              collapsed={collapsed}
-            />
+            <GlobalHeader />
           </Header>
           <Content
             style={{
@@ -82,20 +87,4 @@ const BasicLayout: React.FC = (props: any) => {
   );
 };
 
-export default BasicLayout;
-
-export const DashboardLayout = (props: any) => {
-  const { component: Component, ...rest } = props;
-  return (
-    <Route
-      {...rest}
-      render={matchProps => {
-        return (
-          <BasicLayout>
-            <Component {...matchProps} />
-          </BasicLayout>
-        );
-      }}
-    />
-  );
-};
+export default connect(mapStateToProps)(BasicLayout);

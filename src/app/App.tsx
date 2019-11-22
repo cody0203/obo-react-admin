@@ -1,10 +1,26 @@
 import React from 'react';
 import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { DashboardLayout } from 'app/layout/BasicLayout';
+import BasicLayout from 'app/layout/BasicLayout';
 import { rootRoutes } from '../rootRoutes';
 import { publicRoutes } from '../publicRoutes';
 import NotFound from './modules/NotFound';
 import Auth from 'app/services/Auth';
+
+const DashboardLayout = (props: any) => {
+  const { component: Component, ...rest } = props;
+  return (
+    <Route
+      {...rest}
+      render={matchProps => {
+        return (
+          <BasicLayout>
+            <Component {...matchProps} />
+          </BasicLayout>
+        );
+      }}
+    />
+  );
+};
 
 const App: React.FC = () => {
   return (
