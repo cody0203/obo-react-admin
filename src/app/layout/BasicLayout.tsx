@@ -11,7 +11,8 @@ import GlobalHeader from '../components/headers';
 // Declarations
 function mapStateToProps(state: any) {
   return {
-    collapsed: state.changeLayoutReducer.collapsed
+    collapsed: state.changeLayoutReducer.collapsed,
+    authStatus: state.authReducer.authStatus
   };
 }
 
@@ -21,7 +22,77 @@ const { SubMenu } = Menu;
 const BasicLayout: React.FC = (props: any) => {
   // Initial Declaration
   const location = useLocation();
-  const { collapsed } = props;
+  const { collapsed, authStatus } = props;
+
+  const adminMenu = (
+    <Menu
+      theme="dark"
+      mode="inline"
+      defaultSelectedKeys={[location.pathname]}
+      defaultOpenKeys={[location.pathname]}
+    >
+      <Menu.Item key="/dashboard">
+        <NavLink to="/dashboard">
+          <Icon type="user" />
+          <span>Dashboard </span>
+        </NavLink>
+      </Menu.Item>
+      <SubMenu
+        key="products"
+        title={
+          <span>
+            <Icon type="appstore" />
+            <span>Sản phẩm</span>
+          </span>
+        }
+      >
+        <Menu.Item key="/dashboard/products">
+          <NavLink to="/dashboard/products">
+            <span>Tất cả sản phẩm </span>
+          </NavLink>
+        </Menu.Item>
+
+        <Menu.Item key="/dashboard/new-product">
+          <NavLink to="/dashboard/new-product">
+            <span>Sản phẩm mới </span>
+          </NavLink>
+        </Menu.Item>
+      </SubMenu>
+    </Menu>
+  );
+
+  const userMenu = (
+    <Menu
+      theme="dark"
+      mode="inline"
+      defaultSelectedKeys={[location.pathname]}
+      defaultOpenKeys={[location.pathname]}
+    >
+      <Menu.Item key="/dashboard">
+        <NavLink to="/dashboard">
+          <Icon type="user" />
+          <span>Dashboard </span>
+        </NavLink>
+      </Menu.Item>
+      <SubMenu
+        key="products"
+        title={
+          <span>
+            <Icon type="appstore" />
+            <span>Sản phẩm</span>
+          </span>
+        }
+      >
+        <Menu.Item key="/dashboard/products">
+          <NavLink to="/dashboard/products">
+            <span>Tất cả sản phẩm </span>
+          </NavLink>
+        </Menu.Item>
+      </SubMenu>
+    </Menu>
+  );
+
+  console.log(userMenu);
 
   return (
     <div>
@@ -32,40 +103,7 @@ const BasicLayout: React.FC = (props: any) => {
               <img src="/assets/images/logo-white.png" />
             </NavLink>
           </div>
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={[location.pathname]}
-            defaultOpenKeys={[location.pathname]}
-          >
-            <Menu.Item key="/dashboard">
-              <NavLink to="/dashboard">
-                <Icon type="user" />
-                <span>Dashboard </span>
-              </NavLink>
-            </Menu.Item>
-            <SubMenu
-              key="products"
-              title={
-                <span>
-                  <Icon type="appstore" />
-                  <span>Sản phẩm</span>
-                </span>
-              }
-            >
-              <Menu.Item key="/dashboard/products">
-                <NavLink to="/dashboard/products">
-                  <span>Tất cả sản phẩm </span>
-                </NavLink>
-              </Menu.Item>
-
-              <Menu.Item key="/dashboard/new-product">
-                <NavLink to="/dashboard/new-product">
-                  <span>Sản phẩm mới </span>
-                </NavLink>
-              </Menu.Item>
-            </SubMenu>
-          </Menu>
+          {authStatus.role === 'admin' ? adminMenu : userMenu}
         </Sider>
         <Layout>
           <Header className={classes.Header}>
