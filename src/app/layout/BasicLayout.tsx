@@ -38,7 +38,7 @@ const BasicLayout: React.FC = (props: any) => {
         </NavLink>
       </Menu.Item>
       <SubMenu
-        key="products"
+        key={location.pathname.includes('product') ? location.pathname : ''}
         title={
           <span>
             <Icon type="appstore" />
@@ -75,7 +75,7 @@ const BasicLayout: React.FC = (props: any) => {
         </NavLink>
       </Menu.Item>
       <SubMenu
-        key="products"
+        key="/dashboard/products"
         title={
           <span>
             <Icon type="appstore" />
