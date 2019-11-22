@@ -8,23 +8,23 @@ function mapStateToProps(state) {
   };
 }
 
-const Auth = WrappedComponent => {
-  const Authenticate = props => {
+const Permission = WrappedComponent => {
+  const PermissionChecker = props => {
     const { authStatus } = props;
     const history = useHistory();
     useEffect(() => {
-      if (authStatus.isLogged === false) {
-        history.push('/login');
+      if (authStatus.role === 'user') {
+        history.push('/dashboard');
       }
     }, [history, authStatus]);
 
-    return authStatus.isLogged === true ? (
+    return authStatus.role === 'admin' ? (
       <WrappedComponent {...props} />
     ) : (
-      <Redirect to="/login" />
+      <Redirect to="/dashboard" />
     );
   };
-  return connect(mapStateToProps)(Authenticate);
+  return connect(mapStateToProps)(PermissionChecker);
 };
 
-export default Auth;
+export default Permission;
