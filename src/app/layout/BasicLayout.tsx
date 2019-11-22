@@ -75,7 +75,7 @@ const BasicLayout: React.FC = (props: any) => {
         </NavLink>
       </Menu.Item>
       <SubMenu
-        key="/dashboard/products"
+        key={location.pathname.includes('product') ? location.pathname : ''}
         title={
           <span>
             <Icon type="appstore" />
