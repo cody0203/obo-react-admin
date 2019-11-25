@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Icon, Input, Button } from 'antd';
 import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
@@ -11,7 +11,8 @@ import classes from './styles.module.css';
 function mapStateToProps(state: any) {
   return {
     products: state.productReducer.products,
-    pagination: state.productReducer.pagination
+    pagination: state.productReducer.pagination,
+    loading: state.productReducer.loading
   };
 }
 
@@ -23,7 +24,7 @@ function mapDispatchToProps(dispatch: any) {
 
 const ProductTable: React.FC = (props: any) => {
   // Initial Declaration
-  const { fetchProducts, products, pagination } = props;
+  const { fetchProducts, products, pagination, loading } = props;
   // States
 
   // Life cycles
@@ -36,12 +37,22 @@ const ProductTable: React.FC = (props: any) => {
   // Methods
 
   // on table change
-  const handleTableChange = (
-    pagination: any,
-    undefined: any,
-    sorter: object
-  ) => {
-    fetchProducts({ page: pagination.current });
+  const handleTableChange = (pagination: any, undefined: any, sorter: any) => {
+    console.log(pagination);
+    let order = 'desc';
+    let sort = sorter.field || 'id';
+    if (sorter.order === 'ascend') {
+      order = 'asc';
+    } else {
+      order = 'desc';
+    }
+
+    fetchProducts({ page: pagination.current, sort: sort, order });
+  };
+
+  // handle delete a product
+  const handleDeleteProduct = (id: number) => {
+    console.log(id);
   };
 
   // row select data
@@ -160,9 +171,13 @@ const ProductTable: React.FC = (props: any) => {
     {
       title: 'Action',
       key: 'operation',
-      render: () => (
+      render: (record: any) => (
         <div className={classes.action}>
-          <Icon type="delete" className={classes.icon} />
+          <Icon
+            type="delete"
+            className={classes.icon}
+            onClick={handleDeleteProduct.bind(null, record.id)}
+          />
           <Icon
             type="edit"
             className={[classes.icon, classes.edit].join(' ')}
@@ -175,12 +190,14 @@ const ProductTable: React.FC = (props: any) => {
   return (
     <div>
       <Table
+        loading={loading}
         rowSelection={rowSelection}
         rowKey="id"
         columns={columns}
         dataSource={products}
         scroll={{ x: 1200, y: 700 }}
         pagination={{
+          current: pagination.page,
           pageSize: pagination.limit,
           total: pagination.totalProducts
         }}

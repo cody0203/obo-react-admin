@@ -1,8 +1,8 @@
-import { FETCH_PRODUCTS } from '../action-types';
+import { FETCHING_PRODUCTS } from '../action-types';
 
 export const fetchProducts = query => {
   return {
-    type: FETCH_PRODUCTS,
+    type: FETCHING_PRODUCTS,
     query
   };
 };

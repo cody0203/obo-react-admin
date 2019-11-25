@@ -1,5 +1,5 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
-import { FETCH_PRODUCTS, FETCHED_DATA } from '../action-types';
+import { FETCHING_PRODUCTS, FETCHED_DATA } from '../action-types';
 import { fetchProducts } from 'app/modules/Products/services/api';
 
 function* workerSaga(query) {
@@ -13,5 +13,5 @@ function* workerSaga(query) {
 }
 
 export default function* watcherSaga() {
-  yield takeEvery(FETCH_PRODUCTS, workerSaga);
+  yield takeEvery(FETCHING_PRODUCTS, workerSaga);
 }
