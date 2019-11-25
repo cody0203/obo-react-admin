@@ -1,8 +1,15 @@
-import { takeEvery, call, put } from 'redux-saga/effects';
-import { FETCHING_PRODUCTS, FETCHED_DATA } from '../action-types';
-import { fetchProducts } from 'app/modules/Products/services/api';
+import { takeLatest, call, put } from "redux-saga/effects";
+import {
+  FETCHING_PRODUCTS,
+  FETCHED_DATA,
+  DELETE_PRODUCT
+} from "../action-types";
+import {
+  fetchProducts,
+  deleteProduct
+} from "app/modules/Products/services/api";
 
-function* workerSaga(query) {
+function* fetchedProducts(query) {
   try {
     const fetched = yield call(fetchProducts, query);
     yield put({
@@ -12,6 +19,17 @@ function* workerSaga(query) {
   } catch (err) {}
 }
 
+function* deletedProduct(id) {
+  try {
+    const response = yield call(deleteProduct, id);
+    yield put({
+      type: DELETE_PRODUCT,
+      payload: id
+    });
+  } catch (err) {}
+}
+
 export default function* watcherSaga() {
-  yield takeEvery(FETCHING_PRODUCTS, workerSaga);
+  yield takeLatest(FETCHING_PRODUCTS, fetchedProducts);
+  yield takeLatest(DELETE_PRODUCT, deletedProduct);
 }

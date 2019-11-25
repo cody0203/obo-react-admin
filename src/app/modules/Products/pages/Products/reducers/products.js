@@ -1,4 +1,8 @@
-import { FETCHED_DATA, FETCHING_PRODUCTS } from '../action-types';
+import {
+  FETCHED_DATA,
+  FETCHING_PRODUCTS,
+  DELETE_PRODUCT
+} from "../action-types";
 
 const initialState = {
   products: [],
@@ -6,8 +10,8 @@ const initialState = {
     totalProducts: 0,
     limit: 0,
     page: 1,
-    sort: '',
-    order: ''
+    sort: "",
+    order: ""
   },
   loading: true
 };
@@ -27,6 +31,16 @@ const productReducer = (state = initialState, action) => {
         pagination: action.payload.pagination,
         loading: false
       };
+    case DELETE_PRODUCT:
+      let ids, newProducts;
+      if (action.payload) {
+        ids = action.payload;
+        newProducts = [...state.products];
+        newProducts.filter(product => {
+          return !ids.includes(product.id);
+        });
+      }
+      return { ...state, products: newProducts };
     default:
       return state;
   }

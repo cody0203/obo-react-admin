@@ -5,7 +5,7 @@ import { FormattedNumber } from "react-intl";
 import Highlighter from "react-highlight-words";
 import { Link } from "react-router-dom";
 
-import { fetchProducts } from "../../actions/products";
+import { fetchProducts, deleteProduct } from "../../actions/products";
 import classes from "./styles.module.css";
 
 function mapStateToProps(state: any) {
@@ -18,15 +18,17 @@ function mapStateToProps(state: any) {
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    fetchProducts: (payload: any) => dispatch(fetchProducts(payload))
+    fetchProducts: (payload: any) => dispatch(fetchProducts(payload)),
+    deleteProduct: (id: any) => dispatch(deleteProduct(id))
   };
 }
 
 const ProductTable: React.FC = (props: any) => {
   // Initial Declaration
-  const { fetchProducts, products, pagination, loading } = props;
+  const { fetchProducts, products, pagination, loading, deleteProduct } = props;
   // States
   const [searchText, setSearchText] = useState("");
+  const [bulkSeleted, setBulkSeleted] = useState();
 
   // Life cycles
   useEffect(() => {
@@ -37,19 +39,15 @@ const ProductTable: React.FC = (props: any) => {
 
   // Methods
 
-  // handle delete a product
-  const handleDeleteProduct = (id: number) => {
-    console.log(id);
-  };
-
   // row select data
   const rowSelection: object = {
     onChange: (selectedRowKeys: string, selectedRows: string) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+      // console.log(
+      //   `selectedRowKeys: ${selectedRowKeys}`,
+      //   "selectedRows: ",
+      //   selectedRows
+      // );
+      setBulkSeleted(selectedRowKeys);
     }
   };
 
@@ -138,6 +136,15 @@ const ProductTable: React.FC = (props: any) => {
     });
   };
 
+  // handle delete a product
+  const handleDeleteProduct = (id: number) => {
+    deleteProduct([id]);
+  };
+
+  const bulkDelete = () => {
+    deleteProduct(bulkSeleted);
+  };
+
   // Table render
   const columns = [
     {
@@ -205,6 +212,10 @@ const ProductTable: React.FC = (props: any) => {
 
   return (
     <div>
+      <div className={classes.TableOperator}>
+        <Button onClick={bulkDelete}>Bulk Delete</Button>
+      </div>
+
       <Table
         loading={loading}
         rowSelection={rowSelection}
