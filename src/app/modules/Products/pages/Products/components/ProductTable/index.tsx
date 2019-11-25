@@ -106,7 +106,7 @@ const ProductTable: React.FC = (props: any) => {
 
   const handleSearch = (selectedKeys: any, confirm: any) => {
     confirm();
-    setSearchText(selectedKeys[0]);
+    setSearchText(selectedKeys[0] || "");
   };
 
   const handleReset = (clearFilters: any) => {

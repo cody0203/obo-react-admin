@@ -9,7 +9,6 @@ export const fetchProducts = async payload => {
   let brand;
   let search;
   if (query !== undefined) {
-    console.log(query);
     page = query.page;
     sort = query.sort;
     order = query.order;
@@ -17,6 +16,7 @@ export const fetchProducts = async payload => {
       brand = `&brand=${query.brand}`;
     }
     if (query.searched !== "") {
+      console.log(query);
       search = `&q=${query.searched}`;
     }
   }
