@@ -17,7 +17,7 @@ function mapStateToProps(state: any) {
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    fetchProducts: () => dispatch(fetchProducts())
+    fetchProducts: (payload: any) => dispatch(fetchProducts(payload))
   };
 }
 
@@ -37,10 +37,12 @@ const ProductTable: React.FC = (props: any) => {
 
   // on table change
   const handleTableChange = (
-    pagination: object,
+    pagination: any,
     undefined: any,
     sorter: object
-  ) => {};
+  ) => {
+    fetchProducts({ page: pagination.current });
+  };
 
   // row select data
   const rowSelection: object = {

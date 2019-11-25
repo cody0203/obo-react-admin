@@ -92,7 +92,6 @@ const BasicLayout: React.FC = (props: any) => {
     </Menu>
   );
 
-  console.log(userMenu);
 
   return (
     <div>

@@ -1,17 +1,15 @@
-import { takeEvery, call, put } from "redux-saga/effects";
-import { FETCH_PRODUCTS, FETCHED_DATA } from "../action-types";
-import { fetchProducts } from "app/modules/Products/services/api";
+import { takeEvery, call, put } from 'redux-saga/effects';
+import { FETCH_PRODUCTS, FETCHED_DATA } from '../action-types';
+import { fetchProducts } from 'app/modules/Products/services/api';
 
-function* workerSaga() {
+function* workerSaga(query) {
   try {
-    const fetched = yield call(fetchProducts);
+    const fetched = yield call(fetchProducts, query);
     yield put({
       type: FETCHED_DATA,
       payload: fetched
     });
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 }
 
 export default function* watcherSaga() {

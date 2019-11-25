@@ -5,7 +5,6 @@ const Product = (props: any) => {
   const {
     match: { params }
   } = props;
-  console.log(params);
   return <div>This is product {params.productId} </div>;
 };
 

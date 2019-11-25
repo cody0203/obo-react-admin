@@ -1,2 +1,2 @@
-export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
-export const FETCHED_DATA = "FETCHED_DATA";
+export const FETCH_PRODUCTS = 'FETCH_PRODUCTS';
+export const FETCHED_DATA = 'FETCHED_DATA';

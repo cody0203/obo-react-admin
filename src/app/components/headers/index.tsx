@@ -21,7 +21,6 @@ function mapStateToProps(state: any) {
 const GlobalHeader = (props: any) => {
   // Props
   const { collapsed, toggleCollapsed, authHandler } = props;
-  console.log(collapsed);
   const logout = () => {
     authHandler(false);
   };
