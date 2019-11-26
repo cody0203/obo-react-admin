@@ -229,13 +229,15 @@ const ProductTable: React.FC = (props: any) => {
         <div className={classes.action}>
           <Icon
             type="delete"
-            className={classes.icon}
+            className={[classes.icon, classes.delete].join(' ')}
             onClick={handleModalDelete.bind(null, record)}
           />
-          <Icon
-            type="edit"
-            className={[classes.icon, classes.edit].join(' ')}
-          />
+          <Link to={`/dashboard/products/${record.id}`}>
+            <Icon
+              type="edit"
+              className={[classes.icon, classes.edit].join(' ')}
+            />
+          </Link>
         </div>
       )
     }
