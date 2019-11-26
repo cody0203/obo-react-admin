@@ -2,7 +2,8 @@ import {
   FETCHED_DATA,
   FETCHING_PRODUCTS,
   DELETED_PRODUCTS,
-  SET_LOADING
+  SET_LOADING,
+  SET_CURRENT_PRODUCT
 } from '../action-types';
 
 const initialState = {
@@ -14,7 +15,8 @@ const initialState = {
     sort: '',
     order: ''
   },
-  loading: true
+  loading: true,
+  currentProduct: {}
 };
 
 const productReducer = (state = initialState, action) => {
@@ -38,10 +40,16 @@ const productReducer = (state = initialState, action) => {
       });
 
       return { ...state, products: newProducts, loading: true };
-      case SET_LOADING:
-        return {
-          ...state, loading: action.payload
-        }
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload
+      };
+    case SET_CURRENT_PRODUCT:
+      return {
+        ...state,
+        currentProduct: action.payload
+      };
     default:
       return state;
   }

@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
 import Highlighter from 'react-highlight-words';
 import { Link } from 'react-router-dom';
+import ConfirmModal from 'app/components/modals/Confirm';
 
 import {
   fetchProducts,
   deleteProduct,
-  setLoading
+  setLoading,
+  setCurrentProduct
 } from '../../actions/products';
 import classes from './styles.module.css';
 
@@ -16,7 +18,8 @@ function mapStateToProps(state: any) {
   return {
     products: state.productReducer.products,
     pagination: state.productReducer.pagination,
-    loading: state.productReducer.loading
+    loading: state.productReducer.loading,
+    currentProduct: state.productReducer.currentProduct
   };
 }
 
@@ -24,7 +27,8 @@ function mapDispatchToProps(dispatch: any) {
   return {
     fetchProducts: (payload: any) => dispatch(fetchProducts(payload)),
     deleteProduct: (id: any) => dispatch(deleteProduct(id)),
-    setLoading: (status: any) => dispatch(setLoading(status))
+    setLoading: (status: any) => dispatch(setLoading(status)),
+    setCurrentProduct: (product: any) => dispatch(setCurrentProduct(product))
   };
 }
 
@@ -36,12 +40,15 @@ const ProductTable: React.FC = (props: any) => {
     pagination,
     loading,
     deleteProduct,
-    setLoading
+    setLoading,
+    setCurrentProduct,
+    currentProduct
   } = props;
 
   // States
   const [searchText, setSearchText] = useState('');
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   // Life cycles
   useEffect(() => {
@@ -148,8 +155,17 @@ const ProductTable: React.FC = (props: any) => {
   };
 
   // handle delete a product
-  const handleDeleteProduct = (id: number) => {
+  const handleModalDelete = (product: any) => {
+    // deleteProduct([id]);
+    setCurrentProduct(product);
+    setIsConfirmModalOpen(!isConfirmModalOpen);
+  };
+
+  const handleDeleteProduct = (id: any) => {
     deleteProduct([id]);
+    setLoading(true);
+
+    setIsConfirmModalOpen(!isConfirmModalOpen);
   };
 
   const bulkDelete = () => {
@@ -212,7 +228,7 @@ const ProductTable: React.FC = (props: any) => {
           <Icon
             type="delete"
             className={classes.icon}
-            onClick={handleDeleteProduct.bind(null, record.id)}
+            onClick={handleModalDelete.bind(null, record)}
           />
           <Icon
             type="edit"
@@ -222,6 +238,11 @@ const ProductTable: React.FC = (props: any) => {
       )
     }
   ];
+
+  // Modals
+  const toggleConfirmModal = () => {
+    setIsConfirmModalOpen(!isConfirmModalOpen);
+  };
 
   const isDisabled = selectedRowKeys.length < 1;
 
@@ -246,6 +267,14 @@ const ProductTable: React.FC = (props: any) => {
           total: pagination.totalProducts
         }}
         onChange={handleTableChange}
+      />
+
+      {/* Modals */}
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        toggleConfirmModal={toggleConfirmModal}
+        detail={currentProduct}
+        deleteProduct={handleDeleteProduct}
       />
     </div>
   );
