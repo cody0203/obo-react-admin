@@ -1,7 +1,7 @@
 // Modules
 import React from 'react';
 import { Layout, Menu, Icon } from 'antd';
-import { NavLink, useLocation, Route } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // Components and styles
@@ -92,14 +92,13 @@ const BasicLayout: React.FC = (props: any) => {
     </Menu>
   );
 
-
   return (
     <div>
       <Layout className={classes.Layout}>
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className={classes.Logo}>
             <NavLink to="/dashboard">
-              <img src="/assets/images/logo-white.png" />
+              <img src="/assets/images/logo-white.png" alt="logo" />
             </NavLink>
           </div>
           {authStatus.role === 'admin' ? adminMenu : userMenu}

@@ -15,11 +15,9 @@ export const fetchProducts = async ({ query }) => {
       brand = `&brand=${query.brand}`;
     }
     if (query.searched !== '') {
-      console.log(query);
       search = `&q=${query.searched}`;
     }
   }
-  console.log(sort, order);
 
   const response = await axios.get(
     `https://cody-json-server.herokuapp.com/products?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}${brand}${search}`
@@ -38,7 +36,6 @@ export const fetchProducts = async ({ query }) => {
 };
 
 export const deleteProduct = payload => {
-  console.log(payload);
   const ids = payload.id;
   let response;
   Promise.all(

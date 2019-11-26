@@ -180,7 +180,9 @@ const ProductTable: React.FC = (props: any) => {
       title: 'Ảnh sản phẩm',
       dataIndex: 'thumbnail',
       render: (thumbnail: string) => {
-        return <img className={classes.thumbnail} src={thumbnail} />;
+        return (
+          <img className={classes.thumbnail} src={thumbnail} alt={thumbnail} />
+        );
       }
     },
     {
@@ -209,7 +211,7 @@ const ProductTable: React.FC = (props: any) => {
       dataIndex: 'sell_price',
       sorter: true,
       render: (sell_price: number) => (
-        <FormattedNumber style="currency" currency="VND" value={sell_price} />
+        <FormattedNumber style={`currency`} currency="VND" value={sell_price} />
       )
     },
     {
@@ -217,7 +219,7 @@ const ProductTable: React.FC = (props: any) => {
       dataIndex: 'buy_price',
       sorter: true,
       render: (buy_price: number) => (
-        <FormattedNumber style="currency" currency="VND" value={buy_price} />
+        <FormattedNumber style={`currency`} currency="VND" value={buy_price} />
       )
     },
     {
@@ -274,7 +276,7 @@ const ProductTable: React.FC = (props: any) => {
         isOpen={isConfirmModalOpen}
         toggleConfirmModal={toggleConfirmModal}
         detail={currentProduct}
-        deleteProduct={handleDeleteProduct}
+        okLogic={handleDeleteProduct}
       />
     </div>
   );
