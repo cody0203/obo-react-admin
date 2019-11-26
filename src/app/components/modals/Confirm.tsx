@@ -1,18 +1,24 @@
-import React from 'react';
-import { Modal } from 'antd';
+import React from "react";
+import { Modal } from "antd";
 
 const ConfirmModal = (props: any) => {
   const { detail, isOpen, toggleConfirmModal, okLogic } = props;
   return (
-    <Modal
-      title="Xác nhận xoá sản phẩm"
-      centered
-      visible={isOpen}
-      onCancel={toggleConfirmModal}
-      onOk={okLogic.bind(null, detail['id'])}
-    >
-      Bạn có muốn xoá - {detail['name']}
-    </Modal>
+    <>
+      {detail ? (
+        <Modal
+          title="Xác nhận xoá sản phẩm"
+          centered
+          visible={isOpen}
+          onCancel={toggleConfirmModal}
+          onOk={okLogic.bind(null, detail.id)}
+        >
+          Bạn có muốn xoá - {detail.name}
+        </Modal>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 
