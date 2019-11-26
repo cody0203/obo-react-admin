@@ -1,4 +1,4 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { takeLatest, takeEvery, call, put } from 'redux-saga/effects';
 import {
   FETCHING_PRODUCTS,
   FETCHED_DATA,
@@ -37,6 +37,6 @@ function* deletedProduct(id) {
 }
 
 export default function* watcherSaga() {
-  yield takeLatest(FETCHING_PRODUCTS, fetchedProducts);
+  yield takeEvery(FETCHING_PRODUCTS, fetchedProducts);
   yield takeLatest(DELETE_PRODUCT, deletedProduct);
 }

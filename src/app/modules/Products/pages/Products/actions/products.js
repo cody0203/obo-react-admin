@@ -1,6 +1,7 @@
 import {
   FETCHING_PRODUCTS,
   DELETE_PRODUCT,
+  SET_LOADING
 } from '../action-types';
 
 export const fetchProducts = query => {
@@ -14,5 +15,12 @@ export const deleteProduct = id => {
   return {
     type: DELETE_PRODUCT,
     id
+  };
+};
+
+export const setLoading = payload => {
+  return {
+    type: SET_LOADING,
+    payload
   };
 };

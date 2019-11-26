@@ -5,7 +5,11 @@ import { FormattedNumber } from 'react-intl';
 import Highlighter from 'react-highlight-words';
 import { Link } from 'react-router-dom';
 
-import { fetchProducts, deleteProduct } from '../../actions/products';
+import {
+  fetchProducts,
+  deleteProduct,
+  setLoading
+} from '../../actions/products';
 import classes from './styles.module.css';
 
 function mapStateToProps(state: any) {
@@ -19,13 +23,21 @@ function mapStateToProps(state: any) {
 function mapDispatchToProps(dispatch: any) {
   return {
     fetchProducts: (payload: any) => dispatch(fetchProducts(payload)),
-    deleteProduct: (id: any) => dispatch(deleteProduct(id))
+    deleteProduct: (id: any) => dispatch(deleteProduct(id)),
+    setLoading: (status: any) => dispatch(setLoading(status))
   };
 }
 
 const ProductTable: React.FC = (props: any) => {
   // Initial Declaration
-  const { fetchProducts, products, pagination, loading, deleteProduct } = props;
+  const {
+    fetchProducts,
+    products,
+    pagination,
+    loading,
+    deleteProduct,
+    setLoading
+  } = props;
 
   // States
   const [searchText, setSearchText] = useState('');
@@ -142,7 +154,7 @@ const ProductTable: React.FC = (props: any) => {
 
   const bulkDelete = () => {
     deleteProduct(selectedRowKeys);
-
+    setLoading(true);
     setSelectedRowKeys([]);
   };
 
@@ -211,10 +223,14 @@ const ProductTable: React.FC = (props: any) => {
     }
   ];
 
+  const isDisabled = selectedRowKeys.length < 1;
+
   return (
     <div>
       <div className={classes.TableOperator}>
-        <Button onClick={bulkDelete}>Bulk Delete</Button>
+        <Button onClick={bulkDelete} disabled={isDisabled}>
+          Bulk Delete
+        </Button>
       </div>
 
       <Table

@@ -1,7 +1,8 @@
 import {
   FETCHED_DATA,
   FETCHING_PRODUCTS,
-  DELETED_PRODUCTS
+  DELETED_PRODUCTS,
+  SET_LOADING
 } from '../action-types';
 
 const initialState = {
@@ -13,8 +14,7 @@ const initialState = {
     sort: '',
     order: ''
   },
-  loading: true,
-  bulkSelected: []
+  loading: true
 };
 
 const productReducer = (state = initialState, action) => {
@@ -36,10 +36,12 @@ const productReducer = (state = initialState, action) => {
       const newProducts = [...state.products].filter(product => {
         return !action.payload.includes(product.id);
       });
-      console.log(newProducts);
 
-      return { ...state, products: newProducts };
-
+      return { ...state, products: newProducts, loading: true };
+      case SET_LOADING:
+        return {
+          ...state, loading: action.payload
+        }
     default:
       return state;
   }
