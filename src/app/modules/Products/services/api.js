@@ -1,20 +1,20 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const fetchProducts = async ({ query }) => {
   const limit = 10;
   let page = 1;
-  let sort = "id";
-  let order = "desc";
-  let brand = "";
-  let search = "";
+  let sort = 'id';
+  let order = 'desc';
+  let brand = '';
+  let search = '';
   if (query !== undefined) {
     page = query.page;
     sort = query.sort;
     order = query.order;
-    if (query.brand !== "") {
+    if (query.brand !== '') {
       brand = `&brand=${query.brand}`;
     }
-    if (query.searched !== "") {
+    if (query.searched !== '') {
       console.log(query);
       search = `&q=${query.searched}`;
     }
@@ -29,7 +29,7 @@ export const fetchProducts = async ({ query }) => {
 
   const products = data.data;
 
-  const totalProducts = Number(data.headers["x-total-count"]);
+  const totalProducts = Number(data.headers['x-total-count']);
 
   return {
     products: products,
@@ -37,14 +37,17 @@ export const fetchProducts = async ({ query }) => {
   };
 };
 
-export const deleteProduct = async payload => {
+export const deleteProduct = payload => {
+  console.log(payload);
   const ids = payload.id;
+  let response;
   Promise.all(
     ids.map(async id => {
-      const response = await axios.delete(
+      response = axios.delete(
         `https://cody-json-server.herokuapp.com/products/${id}`
       );
     })
   );
-  return "ok";
+
+  return response;
 };

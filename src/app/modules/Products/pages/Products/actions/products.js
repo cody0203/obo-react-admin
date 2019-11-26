@@ -1,4 +1,7 @@
-import { FETCHING_PRODUCTS, DELETE_PRODUCT } from "../action-types";
+import {
+  FETCHING_PRODUCTS,
+  DELETE_PRODUCT,
+} from '../action-types';
 
 export const fetchProducts = query => {
   return {

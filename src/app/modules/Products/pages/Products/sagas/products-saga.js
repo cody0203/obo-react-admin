@@ -1,13 +1,14 @@
-import { takeLatest, call, put } from "redux-saga/effects";
+import { takeLatest, call, put } from 'redux-saga/effects';
 import {
   FETCHING_PRODUCTS,
   FETCHED_DATA,
-  DELETE_PRODUCT
-} from "../action-types";
+  DELETE_PRODUCT,
+  DELETED_PRODUCTS
+} from '../action-types';
 import {
   fetchProducts,
   deleteProduct
-} from "app/modules/Products/services/api";
+} from 'app/modules/Products/services/api';
 
 function* fetchedProducts(query) {
   try {
@@ -22,10 +23,16 @@ function* fetchedProducts(query) {
 function* deletedProduct(id) {
   try {
     const response = yield call(deleteProduct, id);
-    yield put({
-      type: DELETE_PRODUCT,
-      payload: id
-    });
+
+    if (response) {
+      yield put({
+        type: FETCHING_PRODUCTS
+      });
+      yield put({
+        type: DELETED_PRODUCTS,
+        payload: id.id
+      });
+    }
   } catch (err) {}
 }
 
