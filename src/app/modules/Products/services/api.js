@@ -48,3 +48,14 @@ export const deleteProduct = payload => {
 
   return response;
 };
+
+export const uploadedProduct = async payload => {
+  const data = payload.data;
+  console.log(data);
+
+  const response = await axios.post(
+    `https://cody-json-server.herokuapp.com/products/`,
+    data
+  );
+  return response;
+};

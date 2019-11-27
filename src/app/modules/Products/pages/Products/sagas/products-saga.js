@@ -5,6 +5,7 @@ import {
   DELETE_PRODUCT,
   DELETED_PRODUCTS
 } from '../action-types';
+
 import {
   fetchProducts,
   deleteProduct
@@ -36,7 +37,7 @@ function* deletedProduct(id) {
   } catch (err) {}
 }
 
-export default function* watcherSaga() {
+export default function* ProductSaga() {
   yield takeEvery(FETCHING_PRODUCTS, fetchedProducts);
   yield takeLatest(DELETE_PRODUCT, deletedProduct);
 }
