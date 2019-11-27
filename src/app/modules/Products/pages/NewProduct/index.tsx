@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { uploadProduct } from './actions/index';
 import { uploadImage } from 'app/modules/Products/services/firestore';
-import { Form, Input, Button, DatePicker, InputNumber, Select } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  DatePicker,
+  InputNumber,
+  Select,
+  Icon,
+  Upload
+} from 'antd';
 import { Editor } from '@tinymce/tinymce-react';
 import classes from './styles.module.css';
 
@@ -24,7 +32,6 @@ const NewProduct = (props: any) => {
   const handleUpload = (e: any) => {
     e.preventDefault();
     let obj = {};
-
     props.form.validateFields((err: any, values: any) => {
       if (!err) {
         const release_date = new Date(values.release_date['_d'])
@@ -241,14 +248,29 @@ const NewProduct = (props: any) => {
           </div>
         </Form.Item>
 
+        <Form.Item label="Ảnh sản phẩm">
+          {getFieldDecorator('thumbnail')(
+            <>
+              <input
+                type="file"
+                name="productImage"
+                id="productImage"
+                hidden
+                onChange={handleUploadImage}
+              />
+              <Button>
+                <label htmlFor="productImage" className={classes.UploadLabel}>
+                  <Icon type="upload" className={classes.UploadIcon} /> Click to
+                  Upload
+                </label>
+              </Button>
+            </>
+          )}
+        </Form.Item>
+
         <Button type="primary" htmlType="submit" disabled={isDisabled}>
           Upload
         </Button>
-        <Form.Item label="Ảnh sản phẩm">
-          {getFieldDecorator('thumbnail')(
-            <Input type="file" onChange={handleUploadImage} />
-          )}
-        </Form.Item>
       </Form>
     </div>
   );

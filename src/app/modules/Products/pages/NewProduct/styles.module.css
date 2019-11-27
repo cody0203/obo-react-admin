@@ -8,3 +8,13 @@
   width: calc(100% - 15px) !important;
   margin: 0;
 }
+
+.UploadLabel {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.UploadIcon {
+  padding-right: 5px;
+}
