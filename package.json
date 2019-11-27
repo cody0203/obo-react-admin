@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@loadable/component": "^5.10.3",
+    "@tinymce/tinymce-react": "^3.3.2",
     "@types/jest": "24.0.23",
     "@types/loadable__component": "^5.10.0",
     "@types/node": "12.12.9",

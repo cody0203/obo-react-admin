@@ -1,0 +1,10 @@
+.FormGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.InlineFormControl {
+  width: calc(100% - 15px) !important;
+  margin: 0;
+}
