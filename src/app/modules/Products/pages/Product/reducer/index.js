@@ -1,4 +1,4 @@
-import { FETCHED_PRODUCT, REMOVE_PRODUCT } from '../action-types';
+import ProductTypes from "../action-types";
 
 const initialState = {
   product: {}
@@ -6,12 +6,12 @@ const initialState = {
 
 const ProductReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCHED_PRODUCT:
+    case ProductTypes.FETCHED_PRODUCT:
       return {
         ...state,
         product: action.product
       };
-    case REMOVE_PRODUCT:
+    case ProductTypes.REMOVE_PRODUCT:
       return {
         ...state,
         product: {}

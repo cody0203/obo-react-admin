@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import ProductForm from 'app/modules/Products/components/ProductForm';
-import { fetchProductCreator, removeProduct } from './action/product';
+import React, { useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import ProductForm from "app/modules/Products/components/ProductForm";
+import { fetchProductCreator, removeProduct } from "./action/product";
+import { Spin } from "antd";
 
 function mapStateToProps(state) {
   return {
-    product: state.ProductReducer.product
+    product: state.ProductReducer.product,
+    loading: state.loadingReducer.loading
   };
 }
 
@@ -18,7 +20,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const Product = props => {
-  const { fetchProductCreator, product, removeProduct } = props;
+  const { fetchProductCreator, product, removeProduct, loading } = props;
   const {
     match: { params }
   } = props;
@@ -29,7 +31,13 @@ const Product = props => {
       removeProduct();
     };
   }, [fetchProductCreator, params, removeProduct]);
-  return <ProductForm product={product} />;
+  return (
+    <div>
+      <Spin spinning={loading}>
+        <ProductForm product={product} />
+      </Spin>
+    </div>
+  );
 };
 
 const connectedProduct = connect(mapStateToProps, mapDispatchToProps)(Product);

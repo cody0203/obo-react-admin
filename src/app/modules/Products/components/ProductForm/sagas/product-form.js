@@ -1,14 +1,17 @@
-import { takeLatest, call } from 'redux-saga/effects';
-import { UPLOAD_PRODUCT, UPDATE_PRODUCT } from '../action-types';
+import { takeLatest, call, put } from "redux-saga/effects";
+import productFormTypes from "../action-types";
 import {
   uploadedProduct,
   updateProduct
-} from 'app/modules/Products/services/api';
+} from "app/modules/Products/services/api";
 
 function* handleUploadedProduct(data) {
   try {
     const response = yield call(uploadedProduct, data);
-    console.log(response);
+
+    yield put({
+      type: productFormTypes.UPLOADED_PRODUCT
+    });
   } catch (err) {
     console.log(err);
   }
@@ -17,13 +20,16 @@ function* handleUploadedProduct(data) {
 function* handleUpdatedProduct(data) {
   try {
     const response = yield call(updateProduct, data);
-    console.log(response);
+
+    yield put({
+      type: productFormTypes.UPDATED_PRODUCT
+    });
   } catch (err) {
     console.log(err);
   }
 }
 
 export default function* watcherSaga() {
-  yield takeLatest(UPLOAD_PRODUCT, handleUploadedProduct);
-  yield takeLatest(UPDATE_PRODUCT, handleUpdatedProduct);
+  yield takeLatest(productFormTypes.UPLOAD_PRODUCT, handleUploadedProduct);
+  yield takeLatest(productFormTypes.UPDATE_PRODUCT, handleUpdatedProduct);
 }
