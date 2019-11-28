@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { uploadProduct, updateProduct } from './actions/index';
-import { uploadImage } from 'app/modules/Products/services/firestore';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { uploadProduct, updateProduct } from "./actions/index";
+import { uploadImage } from "app/modules/Products/services/firestore";
 import {
   Form,
   Input,
@@ -10,10 +10,10 @@ import {
   InputNumber,
   Select,
   Icon
-} from 'antd';
-import { Editor } from '@tinymce/tinymce-react';
-import classes from './styles.module.css';
-import moment from 'moment';
+} from "antd";
+import { Editor } from "@tinymce/tinymce-react";
+import classes from "./styles.module.css";
+import moment from "moment";
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -27,7 +27,7 @@ const { Option } = Select;
 const ProductForm = props => {
   const { uploadProduct, product, updateProduct } = props;
   const { getFieldDecorator } = props.form;
-  const [editorData, setEditorData] = useState('');
+  const [editorData, setEditorData] = useState("");
   const [image, setImage] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
 
@@ -37,8 +37,8 @@ const ProductForm = props => {
     props.form.validateFields((err, values) => {
       if (!err) {
         const release_date =
-          new Date(values.release_date['_d']) / (1000).toString();
-        const release_year = new Date(values.release_date['_d']).getFullYear();
+          new Date(values.release_date["_d"]) / (1000).toString();
+        const release_year = new Date(values.release_date["_d"]).getFullYear();
         obj = {
           ...values,
           thumbnail: image || product.thumbnail,
@@ -72,7 +72,7 @@ const ProductForm = props => {
     }
   };
 
-  const brands = ['Adidas', 'Asics', 'Converse', 'Nike', 'Vans'];
+  const brands = ["Adidas", "Asics", "Converse", "Nike", "Vans"];
   const sizes = [
     38.5,
     39,
@@ -116,7 +116,7 @@ const ProductForm = props => {
     if (product) {
       return product[type] || undefined;
     } else {
-      if (type === 'release_date') {
+      if (type === "release_date") {
         const now = new Date();
         return now.getTime() / 1000;
       }
@@ -128,13 +128,13 @@ const ProductForm = props => {
     <div>
       <Form onSubmit={handleUpload}>
         <Form.Item label="Tên sản phẩm">
-          {getFieldDecorator('name', { initialValue: putInitialValue('name') })(
+          {getFieldDecorator("name", { initialValue: putInitialValue("name") })(
             <Input type="text" />
           )}
         </Form.Item>
         <Form.Item label="Mô tả">
-          {getFieldDecorator('description', {
-            initialValue: putInitialValue('description')
+          {getFieldDecorator("description", {
+            initialValue: putInitialValue("description")
           })(
             <Editor
               apiKey="6ftbgayw1aznxtynwtmf25y3lxbfau6wien4tm2ullzlyyrz"
@@ -142,9 +142,9 @@ const ProductForm = props => {
                 height: 500,
                 menubar: false,
                 plugins: [
-                  'advlist autolink lists link image charmap print preview anchor',
-                  'searchreplace visualblocks code fullscreen',
-                  'insertdatetime media table paste code help wordcount'
+                  "advlist autolink lists link image charmap print preview anchor",
+                  "searchreplace visualblocks code fullscreen",
+                  "insertdatetime media table paste code help wordcount"
                 ],
                 toolbar: `undo redo | formatselect | bold italic backcolor |
              alignleft aligncenter alignright alignjustify |
@@ -161,13 +161,13 @@ const ProductForm = props => {
               label="Giá bán của hãng"
               className={classes.InlineFormControl}
             >
-              {getFieldDecorator('retail_price', {
-                initialValue: putInitialValue('retail_price')
+              {getFieldDecorator("retail_price", {
+                initialValue: putInitialValue("retail_price")
               })(
                 <InputNumber
                   className={classes.InlineFormControl}
                   formatter={value =>
-                    `${value} ₫`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                    `${value} ₫`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
                 />
               )}
@@ -176,13 +176,13 @@ const ProductForm = props => {
               label="Giá bán thấp nhất mặc định"
               className={classes.InlineFormControl}
             >
-              {getFieldDecorator('sell_price', {
-                initialValue: putInitialValue('sell_price')
+              {getFieldDecorator("sell_price", {
+                initialValue: putInitialValue("sell_price")
               })(
                 <InputNumber
                   className={classes.InlineFormControl}
                   formatter={value =>
-                    `${value} ₫`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                    `${value} ₫`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
                 />
               )}
@@ -191,13 +191,13 @@ const ProductForm = props => {
               label="Giá bán cao nhất mặc định"
               className={classes.InlineFormControl}
             >
-              {getFieldDecorator('buy_price', {
-                initialValue: putInitialValue('buy_price')
+              {getFieldDecorator("buy_price", {
+                initialValue: putInitialValue("buy_price")
               })(
                 <InputNumber
                   className={classes.InlineFormControl}
                   formatter={value =>
-                    `${value} ₫`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                    `${value} ₫`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
                 />
               )}
@@ -211,8 +211,8 @@ const ProductForm = props => {
               label="Ngày ra mắt"
               className={classes.InlineFormControl}
             >
-              {getFieldDecorator('release_date', {
-                initialValue: moment.unix(putInitialValue('release_date'))
+              {getFieldDecorator("release_date", {
+                initialValue: moment.unix(putInitialValue("release_date"))
               })(
                 <DatePicker
                   className={classes.InlineFormControl}
@@ -223,8 +223,8 @@ const ProductForm = props => {
             </Form.Item>
 
             <Form.Item label="Hãng" className={classes.InlineFormControl}>
-              {getFieldDecorator('brand', {
-                initialValue: putInitialValue('brand')
+              {getFieldDecorator("brand", {
+                initialValue: putInitialValue("brand")
               })(
                 <Select
                   placeholder="Chọn hãng sản xuất"
@@ -236,8 +236,8 @@ const ProductForm = props => {
             </Form.Item>
 
             <Form.Item label="Giới tính" className={classes.InlineFormControl}>
-              {getFieldDecorator('gender', {
-                initialValue: putInitialValue('gender')
+              {getFieldDecorator("gender", {
+                initialValue: putInitialValue("gender")
               })(
                 <Select
                   placeholder="Chọn giới tính"
@@ -254,8 +254,8 @@ const ProductForm = props => {
         <Form.Item>
           <div className={classes.FormGroup}>
             <Form.Item label="Danh mục" className={classes.InlineFormControl}>
-              {getFieldDecorator('status', {
-                initialValue: putInitialValue('status')
+              {getFieldDecorator("status", {
+                initialValue: putInitialValue("status")
               })(
                 <Select
                   placeholder="Chọn danh mục"
@@ -269,8 +269,8 @@ const ProductForm = props => {
             </Form.Item>
 
             <Form.Item label="Size" className={classes.InlineFormControl}>
-              {getFieldDecorator('available_size', {
-                initialValue: putInitialValue('available_size')
+              {getFieldDecorator("available_size", {
+                initialValue: putInitialValue("available_size")
               })(
                 <Select
                   mode="multiple"
@@ -285,7 +285,7 @@ const ProductForm = props => {
         </Form.Item>
 
         <Form.Item label="Ảnh sản phẩm">
-          {getFieldDecorator('thumbnail')(
+          {getFieldDecorator("thumbnail")(
             <>
               <input
                 type="file"
@@ -305,8 +305,8 @@ const ProductForm = props => {
                   image
                     ? image
                     : product
-                    ? product['thumbnail']
-                    : 'https://via.placeholder.com/200'
+                    ? product["thumbnail"]
+                    : "https://via.placeholder.com/200"
                 }
                 alt="product-thumbnail"
                 className={classes.Thumbnail}
@@ -323,7 +323,7 @@ const ProductForm = props => {
   );
 };
 
-const enhancesProductForm = Form.create({ name: 'normal_login' })(ProductForm);
+const enhancesProductForm = Form.create({ name: "normal_login" })(ProductForm);
 
 const connectedProductForm = connect(
   null,
