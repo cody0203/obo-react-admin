@@ -16,10 +16,10 @@ import classes from './styles.module.css';
 
 function mapStateToProps(state: any) {
   return {
-    products: state.productReducer.products,
-    pagination: state.productReducer.pagination,
-    loading: state.productReducer.loading,
-    currentProduct: state.productReducer.currentProduct
+    products: state.ProductsReducer.products,
+    pagination: state.ProductsReducer.pagination,
+    loading: state.ProductsReducer.loading,
+    currentProduct: state.ProductsReducer.currentProduct
   };
 }
 

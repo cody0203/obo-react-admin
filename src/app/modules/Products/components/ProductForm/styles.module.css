@@ -18,3 +18,8 @@
 .UploadIcon {
   padding-right: 5px;
 }
+
+.Thumbnail {
+  max-width: 200px;
+  display: block;
+}

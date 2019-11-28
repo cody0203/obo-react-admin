@@ -1,1 +1,2 @@
 export const UPLOAD_PRODUCT = 'UPLOAD_PRODUCT';
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';

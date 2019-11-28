@@ -19,7 +19,7 @@ const initialState = {
   currentProduct: {}
 };
 
-const productReducer = (state = initialState, action) => {
+const ProductsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCHING_PRODUCTS: {
       return {
@@ -55,4 +55,4 @@ const productReducer = (state = initialState, action) => {
   }
 };
 
-export default productReducer;
+export default ProductsReducer;

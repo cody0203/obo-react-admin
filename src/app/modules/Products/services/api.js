@@ -59,3 +59,29 @@ export const uploadedProduct = async payload => {
   );
   return response;
 };
+
+export const fetchProduct = async payload => {
+  const { id } = payload;
+  const response = await axios.get(
+    `https://cody-json-server.herokuapp.com/products/${id}`
+  );
+
+  const product = await response.data;
+  return {
+    product
+  };
+};
+
+export const updateProduct = async payload => {
+  const { data, id } = payload.data;
+  console.log(payload);
+  const response = await axios.put(
+    `https://cody-json-server.herokuapp.com/products/${id}`,
+    data
+  );
+
+  const product = await response.data;
+  return {
+    product
+  };
+};
