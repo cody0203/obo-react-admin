@@ -1,18 +1,19 @@
 // Modules
-import React from 'react';
-import { Layout, Menu, Icon } from 'antd';
-import { NavLink, useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from "react";
+import { Layout, Menu, Icon, Spin } from "antd";
+import { NavLink, useLocation } from "react-router-dom";
+import { connect } from "react-redux";
 
 // Components and styles
-import classes from './styles.module.css';
-import GlobalHeader from '../components/headers';
+import classes from "./styles.module.css";
+import GlobalHeader from "../components/headers";
 
 // Declarations
 function mapStateToProps(state: any) {
   return {
     collapsed: state.changeLayoutReducer.collapsed,
-    authStatus: state.authReducer.authStatus
+    authStatus: state.authReducer.authStatus,
+    loading: state.loadingReducer.loading
   };
 }
 
@@ -22,7 +23,7 @@ const { SubMenu } = Menu;
 const BasicLayout: React.FC = (props: any) => {
   // Initial Declaration
   const location = useLocation();
-  const { collapsed, authStatus } = props;
+  const { collapsed, authStatus, loading } = props;
 
   const adminMenu = (
     <Menu
@@ -38,7 +39,7 @@ const BasicLayout: React.FC = (props: any) => {
         </NavLink>
       </Menu.Item>
       <SubMenu
-        key={location.pathname.includes('product') ? location.pathname : ''}
+        key={location.pathname.includes("product") ? location.pathname : ""}
         title={
           <span>
             <Icon type="appstore" />
@@ -75,7 +76,7 @@ const BasicLayout: React.FC = (props: any) => {
         </NavLink>
       </Menu.Item>
       <SubMenu
-        key={location.pathname.includes('product') ? location.pathname : ''}
+        key={location.pathname.includes("product") ? location.pathname : ""}
         title={
           <span>
             <Icon type="appstore" />
@@ -101,7 +102,7 @@ const BasicLayout: React.FC = (props: any) => {
               <img src="/assets/images/logo-white.png" alt="logo" />
             </NavLink>
           </div>
-          {authStatus.role === 'admin' ? adminMenu : userMenu}
+          {authStatus.role === "admin" ? adminMenu : userMenu}
         </Sider>
         <Layout>
           <Header className={classes.Header}>
@@ -109,13 +110,13 @@ const BasicLayout: React.FC = (props: any) => {
           </Header>
           <Content
             style={{
-              margin: '24px 16px',
+              margin: "24px 16px",
               padding: 24,
-              background: '#fff',
+              background: "#fff",
               minHeight: 280
             }}
           >
-            {props.children}
+            <Spin spinning={loading}>{props.children}</Spin>
           </Content>
         </Layout>
       </Layout>

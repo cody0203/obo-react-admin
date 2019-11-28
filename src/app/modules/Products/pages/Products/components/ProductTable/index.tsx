@@ -17,7 +17,6 @@ function mapStateToProps(state: any) {
   return {
     products: state.ProductsReducer.products,
     pagination: state.ProductsReducer.pagination,
-    loading: state.loadingReducer.loading,
     currentProduct: state.ProductsReducer.currentProduct
   };
 }
@@ -36,7 +35,6 @@ const ProductTable: React.FC = (props: any) => {
     fetchProducts,
     products,
     pagination,
-    loading,
     deleteProduct,
     setCurrentProduct,
     currentProduct
@@ -254,7 +252,6 @@ const ProductTable: React.FC = (props: any) => {
       </div>
 
       <Table
-        loading={loading}
         rowSelection={rowSelection}
         rowKey="id"
         columns={columns}

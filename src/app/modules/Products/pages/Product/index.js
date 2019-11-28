@@ -3,12 +3,10 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import ProductForm from "app/modules/Products/components/ProductForm";
 import { fetchProductCreator, removeProduct } from "./action/product";
-import { Spin } from "antd";
 
 function mapStateToProps(state) {
   return {
-    product: state.ProductReducer.product,
-    loading: state.loadingReducer.loading
+    product: state.ProductReducer.product
   };
 }
 
@@ -20,7 +18,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const Product = props => {
-  const { fetchProductCreator, product, removeProduct, loading } = props;
+  const { fetchProductCreator, product, removeProduct } = props;
   const {
     match: { params }
   } = props;
@@ -31,13 +29,7 @@ const Product = props => {
       removeProduct();
     };
   }, [fetchProductCreator, params, removeProduct]);
-  return (
-    <div>
-      <Spin spinning={loading}>
-        <ProductForm product={product} />
-      </Spin>
-    </div>
-  );
+  return <ProductForm product={product} />;
 };
 
 const connectedProduct = connect(mapStateToProps, mapDispatchToProps)(Product);
