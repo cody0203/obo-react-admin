@@ -47,6 +47,7 @@ const ProductForm = props => {
           release_year,
           total_sold: 0
         };
+
         if (product) {
           updateProduct({ data: obj, id: product.id });
         } else {

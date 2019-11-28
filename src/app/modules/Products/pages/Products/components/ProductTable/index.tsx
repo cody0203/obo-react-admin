@@ -183,7 +183,14 @@ const ProductTable: React.FC = (props: any) => {
       dataIndex: "name",
       ...getColumnSearchProps("name"),
       render: (text: string, record: any) => {
-        return <Link to={`/dashboard/products/${record.id}`}>{text}</Link>;
+        return (
+          <a
+            href={`https://nextjs-obo-stadium.congdinh2395.now.sh/shop/${record.id}`}
+            target="_blank"
+          >
+            {text}
+          </a>
+        );
       }
     },
     {
