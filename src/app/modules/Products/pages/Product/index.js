@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProductForm from 'app/modules/Products/components/ProductForm';
-import { fetchProductCreator } from './action/product';
+import { fetchProductCreator, removeProduct } from './action/product';
+import { Spin } from 'antd';
 
 function mapStateToProps(state) {
   return {
@@ -12,19 +13,29 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchProductCreator: id => dispatch(fetchProductCreator(id))
+    fetchProductCreator: id => dispatch(fetchProductCreator(id)),
+    removeProduct: () => dispatch(removeProduct())
   };
 }
 
 const Product = props => {
-  const { fetchProductCreator, product } = props;
+  const {
+    fetchProductCreator,
+    product,
+    removeProduct,
+    loading,
+    setLoading
+  } = props;
   const {
     match: { params }
   } = props;
 
   useEffect(() => {
     fetchProductCreator(params.productId);
-  }, [fetchProductCreator, params]);
+    return () => {
+      removeProduct();
+    };
+  }, [fetchProductCreator, params, removeProduct, setLoading]);
   return <ProductForm product={product} />;
 };
 

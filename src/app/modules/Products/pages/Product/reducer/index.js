@@ -1,4 +1,4 @@
-import { FETCHED_PRODUCT } from '../action-types';
+import { FETCHED_PRODUCT, REMOVE_PRODUCT } from '../action-types';
 
 const initialState = {
   product: {}
@@ -10,6 +10,11 @@ const ProductReducer = (state = initialState, action) => {
       return {
         ...state,
         product: action.product
+      };
+    case REMOVE_PRODUCT:
+      return {
+        ...state,
+        product: {}
       };
     default:
       return state;
