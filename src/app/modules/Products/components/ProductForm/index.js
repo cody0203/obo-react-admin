@@ -114,11 +114,12 @@ const ProductForm = props => {
 
   const putInitialValue = type => {
     if (product) {
-      if (type === 'release_date') {
-        return product[type] * 1000;
-      }
       return product[type] || undefined;
     } else {
+      if (type === 'release_date') {
+        const now = new Date();
+        return now.getTime() / 1000;
+      }
       return undefined;
     }
   };
@@ -211,7 +212,7 @@ const ProductForm = props => {
               className={classes.InlineFormControl}
             >
               {getFieldDecorator('release_date', {
-                initialValue: moment(putInitialValue('release_date'))
+                initialValue: moment.unix(putInitialValue('release_date'))
               })(
                 <DatePicker
                   className={classes.InlineFormControl}

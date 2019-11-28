@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProductForm from 'app/modules/Products/components/ProductForm';
 import { fetchProductCreator, removeProduct } from './action/product';
-import { Spin } from 'antd';
 
 function mapStateToProps(state) {
   return {
@@ -19,13 +18,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const Product = props => {
-  const {
-    fetchProductCreator,
-    product,
-    removeProduct,
-    loading,
-    setLoading
-  } = props;
+  const { fetchProductCreator, product, removeProduct } = props;
   const {
     match: { params }
   } = props;
@@ -35,7 +28,7 @@ const Product = props => {
     return () => {
       removeProduct();
     };
-  }, [fetchProductCreator, params, removeProduct, setLoading]);
+  }, [fetchProductCreator, params, removeProduct]);
   return <ProductForm product={product} />;
 };
 
